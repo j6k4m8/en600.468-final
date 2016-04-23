@@ -1,0 +1,27 @@
+<template name="show_room"> {{ title name }}
+    <div class="row">
+        <div class="col m8">
+            <table class="striped highlight chatbox">
+                <tbody>
+                    <tr><td>test</td></tr>
+                    <tr><td>test</td></tr>
+                    <tr><td>test</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col m4">
+            Blah
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <input type="text" id="send-msg" placeholder="Send a message">
+        </div>
+    </div>
+</template>
+
+<template name="_convo_line">
+    <tr>
+        <td>{{ name }}</td><td>{{ my_text }}</td>
+    </tr>
+</template>

@@ -39,7 +39,7 @@ Goshen = class Goshen {
             source: source || LANGUAGES.de
         })), {});
         var translated = response.data.data.translations[0].translatedText;
-        callback(text, translated);
+        if (callback) callback(text, translated);
         return translated;
     }
 }
