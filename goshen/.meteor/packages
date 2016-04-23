@@ -25,3 +25,4 @@ bootstrap
 underscore
 less
 materialize:materialize
+session
