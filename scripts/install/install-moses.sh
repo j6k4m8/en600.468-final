@@ -12,7 +12,7 @@ cd mosesdecoder
 make -f contrib/Makefiles/install-dependencies.gmake
 
 # Compile moses:
-./compile.sh
+./compile.sh --with-xmlrpc-c=/usr/local
 
 # bjam moses with your installation of boost (as per install-boost.sh):
 ./bjam --with-boost=~/workspace/temp/boost_1_55_0 -j4
