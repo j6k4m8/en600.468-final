@@ -58,7 +58,8 @@ Template._convo_line.helpers({
         if (this.translations[mylang]) {
             return this.translations[mylang];
         } else {
-            return "Translation Is Not Implemented Yet"
+            Meteor.call('goshen.translate', this._id, this.text, mylang, this.source);
+            return "...";
         }
     }
 });
