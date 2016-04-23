@@ -17,27 +17,26 @@ Goshen = class Goshen {
 
     url(suffix) {
         suffix = suffix || '';
-        return `${this.protocol}/${this.hostname}/translate/${suffix}`;
+        return `${this.protocol}://${this.hostname}/translate?${suffix}`;
     }
 
-    translate(text, to, from, callback) {
+    translate(text, target, source) {
         /* Translate a string `text`, using `opts` as corequisite options.
 
         Arguments:
             text (str): The text to translate.
-            to (str): The language to translate to
-            from (str): The language to translate from
-            callback (function): A function to run — takes err, val as args
+            target (str): The language to translate to
+            source (str): The language to translate from
 
         Returns:
-            None
+            str: The translated text
         */
-        var response = HTTP.call('GET', this.url(), {
-            q: 'der Obama kommt nach Oslo.',
+        var response = HTTP.call('GET', this.url(serialize({
+            q: text,
             key: 'x',
-            target: 'en',
-            source: 'de'
-        });
-        return response;
+            target: target || LANGUAGES.en,
+            source: source || LANGUAGES.de
+        })), {});
+        return response.data.data.translations[0].translatedText;
     }
 }
