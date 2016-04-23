@@ -1,0 +1,5 @@
+{
+    "moses_server": {
+        "default_url": "ec2-52-23-242-15.compute-1.amazonaws.com:8081"
+    }
+}
