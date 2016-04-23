@@ -23,11 +23,19 @@ You will need XMLRPC-C, which is available on SourceForge. To download this, you
 ### `mosesserver` and `casmacat` Installation
 After xmlrpc-c has been installed and configured, mosesserver should operate out of the box. The next step is to install and configure [casmacat](https://github.com/casmacat/moses-mt-server/tree/master/python_server).
 
-## Test Data Download and Configuration
+### Test Data Download and Configuration
 Use the `scripts/tests/test-model.sh` script to download and untar some demo data.
 
-## The Whole Enchilada
+### Installing casmacat
+I use casmacat as a go-between between mosesserver and the JSON interface that Goshen accesses. Install casmacat with `scripts/install/install-casmacat.sh`.
+
+### The Whole Enchilada
 If you want to have a good day instead of a bad day (e.g. me installing everything on 14.04 a few weeks ago), run `the-whole-enchilada.sh` from the root of the scripts directory. I can guarantee with 0.4% confidence that this will work for you right out of the box.
+
+## Running casmacat over mosesserver
+Start `mosesserver` with your specified model configuration file. If you want to get off the ground quickly, use `scripts/run/runserver-europarl`, which uses the EuroParl corpus as its model source.
+
+You now have `mosesserver` running locally on port 8080.
 
 
 ## Future Work
