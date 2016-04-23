@@ -6,8 +6,10 @@ Moses is an immensely powerful statistical machine translation engine that provi
 
 To illustrate the utility of Goshen, this project also includes GoshenTalk, a web-app example of using Goshen for real-time asynchronous translation for multiple human end-users.
 
-## Usage
+## Installation and Setup
 This section explains the usage of the various parts of the platform that were developed for this project.
+
+If you're looking for a cure-all, do-everything-you-ever-wanted, best-day-ever solution, check out **The Whole Enchilada** section below.
 
 ### Moses Installation
 I here describe the setup process I developed in order to best set up a MOSES server quickly for use over HTTP with the Goshen frontend.
@@ -21,7 +23,11 @@ You will need XMLRPC-C, which is available on SourceForge. To download this, you
 ### `mosesserver` and `casmacat` Installation
 After xmlrpc-c has been installed and configured, mosesserver should operate out of the box. The next step is to install and configure [casmacat](https://github.com/casmacat/moses-mt-server/tree/master/python_server).
 
+## Test Data Download and Configuration
+Use the `scripts/tests/test-model.sh` script to download and untar some demo data.
 
+## The Whole Enchilada
+If you want to have a good day instead of a bad day (e.g. me installing everything on 14.04 a few weeks ago), run `the-whole-enchilada.sh` from the root of the scripts directory. I can guarantee with 0.4% confidence that this will work for you right out of the box.
 
 
 ## Future Work
