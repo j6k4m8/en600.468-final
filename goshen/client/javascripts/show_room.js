@@ -13,6 +13,10 @@ Template.show_room.created = function() {
 };
 
 Template.show_room.events({
+    'click #lang-select': function(ev) {
+        Session.set('mylang', ev.target.checked ? 'de' : 'en');
+    },
+
     'keyup #send-msg': function(ev) {
         if (ev.keyCode == 13) {
             var text = ev.target.value;
