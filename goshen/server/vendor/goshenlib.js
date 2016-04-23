@@ -1,4 +1,4 @@
-class Goshen {
+Goshen = class Goshen {
     constructor(hostname, protocol, opts) {
         /* Create a new Goshen object.
 
@@ -11,11 +11,12 @@ class Goshen {
 
         The options configuration dictionary can contain
         */
-        this.hostname = hostname;
+        this.hostname = hostname || Meteor.settings.moses_server.default_url;
         this.protocol = protocol || 'http';
     }
 
     url(suffix) {
+        suffix = suffix || '';
         return `${this.protocol}/${this.hostname}/translate/${suffix}`;
     }
 
@@ -32,8 +33,11 @@ class Goshen {
             None
         */
         var response = HTTP.call('GET', this.url(), {
-            
+            q: 'der Obama kommt nach Oslo.',
+            key: 'x',
+            target: 'en',
+            source: 'de'
         });
-        console.log( response );
+        return response;
     }
 }
