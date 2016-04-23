@@ -20,13 +20,14 @@ Goshen = class Goshen {
         return `${this.protocol}://${this.hostname}/translate?${suffix}`;
     }
 
-    translate(text, target, source) {
+    translate(text, target, source, callback) {
         /* Translate a string `text`, using `opts` as corequisite options.
 
         Arguments:
             text (str): The text to translate.
             target (str): The language to translate to
             source (str): The language to translate from
+            callback (function): The function to call on the translated text
 
         Returns:
             str: The translated text
@@ -37,6 +38,8 @@ Goshen = class Goshen {
             target: target || LANGUAGES.en,
             source: source || LANGUAGES.de
         })), {});
-        return response.data.data.translations[0].translatedText;
+        var translated = response.data.data.translations[0].translatedText;
+        callback(text, translated);
+        return translated;
     }
 }
