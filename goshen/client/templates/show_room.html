@@ -3,9 +3,9 @@
         <div class="col m8">
             <table class="striped highlight chatbox">
                 <tbody>
-                    <tr><td>test</td></tr>
-                    <tr><td>test</td></tr>
-                    <tr><td>test</td></tr>
+                    {{# each messages }}
+                        {{> _convo_line }}
+                    {{/ each }}
                 </tbody>
             </table>
         </div>
@@ -22,6 +22,6 @@
 
 <template name="_convo_line">
     <tr>
-        <td>{{ name }}</td><td>{{ my_text }}</td>
+        <td>{{ sender }}</td><td>{{ my_text }}</td>
     </tr>
 </template>
