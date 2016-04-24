@@ -1,7 +1,7 @@
 <template name="show_room"> {{ title name }}
     <div class="row">
-        <div class="col m8">
-            <table class="striped highlight chatbox">
+        <div class="col l8 chatbox">
+            <table class="striped highlight">
                 <tbody>
                     {{# if messages }}
                         {{# each messages }}
@@ -15,8 +15,9 @@
                 </tbody>
             </table>
         </div>
-        <div class="col m4">
+        <div class="col l4">
             <input type="text" placeholder="Room Name" class="js-room-name">
+            <input type="text" placeholder="My Name" class="js-my-name" value="{{ myname }}">
             <p>I speak:</p>
             <div class="switch">
                 <label>
@@ -24,6 +25,14 @@
                     <input type="checkbox" id="lang-select">
                     <span class="lever"></span>
                     German
+                </label>
+            </div>
+            <div class="switch">
+                <label>
+                    Don't Speak
+                    <input type="checkbox" id="speak-select" checked>
+                    <span class="lever"></span>
+                    Speak
                 </label>
             </div>
         </div>
