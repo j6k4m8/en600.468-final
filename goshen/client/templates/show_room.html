@@ -3,13 +3,21 @@
         <div class="col m8">
             <table class="striped highlight chatbox">
                 <tbody>
-                    {{# each messages }}
-                        {{> _convo_line }}
-                    {{/ each }}
+                    {{# if messages }}
+                        {{# each messages }}
+                            {{> _convo_line }}
+                        {{/ each }}
+                    {{ else }}
+                        <tr>
+                            <td>Type below to start a new chat.</td>
+                        </tr>
+                    {{/ if }}
                 </tbody>
             </table>
         </div>
         <div class="col m4">
+            <input type="text" placeholder="Room Name" class="js-room-name">
+            <p>I speak:</p>
             <div class="switch">
                 <label>
                     English
