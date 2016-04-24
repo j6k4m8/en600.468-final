@@ -8,10 +8,6 @@ createRoom = function(opts) {
     return Rooms.insert(r);
 };
 
-Template.show_room.created = function() {
-    Session.set('currentRoom', this._id);
-};
-
 Template.show_room.events({
     'click #lang-select': function(ev) {
         Session.set('mylang', ev.target.checked ? 'de' : 'en');
@@ -38,6 +34,10 @@ Template.show_room.events({
 
             ev.target.value = "";
         }
+    },
+
+    'keyup .js-room-name': function(ev) {
+        Rooms.update(Session.get('currentRoom'), {$set: { 'name': ev.target.value }})
     }
 });
 
@@ -47,7 +47,7 @@ Template.show_room.helpers({
             'room': Session.get('currentRoom')
         }, {
             sort: { date: 1 }
-        });
+        }).fetch();
     }
 });
 
