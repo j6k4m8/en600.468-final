@@ -1,4 +1,4 @@
-class Goshen {
+Goshen = class Goshen {
     constructor(hostname, protocol, opts) {
         /* Create a new Goshen object.
 
@@ -11,21 +11,35 @@ class Goshen {
 
         The options configuration dictionary can contain
         */
-        this.hostname = hostname;
+        this.hostname = hostname || Meteor.settings.moses_server.default_url;
         this.protocol = protocol || 'http';
     }
 
-    translate(text, to, from, callback) {
+    url(suffix) {
+        suffix = suffix || '';
+        return `${this.protocol}://${this.hostname}/translate?${suffix}`;
+    }
+
+    translate(text, target, source, callback) {
         /* Translate a string `text`, using `opts` as corequisite options.
 
         Arguments:
             text (str): The text to translate.
-            to (str): The language to translate to
-            from (str): The language to translate from
-            callback (function): A function to run — takes err, val as args
+            target (str): The language to translate to
+            source (str): The language to translate from
+            callback (function): The function to call on the translated text
 
         Returns:
-            None
+            str: The translated text
         */
+        var response = HTTP.call('GET', this.url(serialize({
+            q: text,
+            key: 'x',
+            target: target || LANGUAGES.en,
+            source: source || LANGUAGES.de
+        })), {});
+        var translated = response.data.data.translations[0].translatedText;
+        if (callback) callback(text, translated);
+        return translated;
     }
 }
