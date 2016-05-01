@@ -45,6 +45,9 @@ You can either run the server as per the casmacat documentation, or you can simp
 ## ...so, finally:
 You can run everything inside the `scripts/run` directory — each will need its own terminal to run in, but once you're running those, you can hit your JSON server at `ip:port/translate`.
 
+## Chrome Extension
+I also developed a chrome extension that utilizes the CASMACAT/Moses backend to provide a frontend website translation service. The extension automatically detects the content of most articles or body-text on the page, and at the user's request, translates it to the requested language.
+
 
 ## Future Work
 
