@@ -18,8 +18,12 @@
 
     "content_scripts": [{
         "matches": ["http://*/*", "https://*/*", "file:///*"],
-        "css": ["onpage.css"],
-        "js": ["onpage.js"],
+        "css": ["onpage/onpage.css"],
+        "js": [
+            "onpage/goshen.js",
+            "onpage/chromegoshen.js",
+            "onpage/onpage.js"
+        ],
         "all_frames": true
     }]
 }
