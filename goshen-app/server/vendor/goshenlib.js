@@ -1,33 +1,5 @@
-(function (root) {
-
-    var _goshen = root._goshen;
-
-    LANGUAGES = {
-        English: 'en',
-        en: 'en',
-        German: 'de',
-        de: 'de'
-    }
-
-    LOCALES = {
-        English: 'en-US',
-        en: 'en-US',
-        German: 'de',
-        de: 'de'
-    }
-
-
-    serialize = function(obj) {
-        var str = [];
-        for (var p in obj) {
-            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        }
-        return str.join("&");
-    };
-
-
-
-    _goshen.Goshen = class Goshen {
+(function(root) {
+    Goshen = class Goshen {
         constructor(hostname, protocol, opts) {
             /* Create a new Goshen object.
 
@@ -69,6 +41,7 @@
                 source: source || LANGUAGES.de
             }));
 
+            console.log(requestURL)
             if (!!root.Meteor && !!root.HTTP) {
                 var response = HTTP.call('GET', requestURL, {});
                 var translated = response.data;
