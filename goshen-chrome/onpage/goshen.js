@@ -71,21 +71,22 @@
 
             if (!!root.Meteor && !!root.HTTP) {
                 var response = HTTP.call('GET', requestURL, {});
-                var translated = response.data.data.translations[0].translatedText;
+                var translated = response.data;
                 if (callback) callback(text, translated);
                 return translated;
 
             } else if (!!root.XMLHttpRequest) {
                 var request = new XMLHttpRequest();
-                request.open('GET', requestURL, false);  // `false` makes the request synchronous
+                request.open('GET', requestURL, false);
                 request.send(null);
 
                 if (request.status === 200) {
-                    var translated = root.JSON.parse(request.responseText).data.translations[0].translatedText;
+                    var translated = root.JSON.parse(request.responseText);
                     if (callback) callback(text, translated);
                     return translated;
                 }
             }
+            return translated.data.translations[0].translatedText
         }
     };
 })(this);
