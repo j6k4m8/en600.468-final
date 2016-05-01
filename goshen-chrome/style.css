@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+}
+.container {
+    width: 100%;
+}
+.dropdown-container, .arrow-container {
+    display: inline-block;
+    width: 30%;
+}
+
+.arrow-container .leg {
+    height: 50px;
+    width: 50px;
+    background: black;
+    border-top: 15px solid white;
+    border-bottom: 15px solid white;
+    display: inline-block;
+}
+
+.arrow-container .point {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    border-width: 25px;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    border-style: solid;
+    border-left-color: black;
+    margin-left: -10px;
+}
+
+button {
+    border-radius: 0;
+    background: #09f;
+    color: white;
+    text-transform: uppercase;
+    padding: 1em;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    font-size: 1.1em;
+}
