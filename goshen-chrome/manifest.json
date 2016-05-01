@@ -11,6 +11,15 @@
     },
     "permissions": [
         "activeTab",
+        "storage",
         "https://ajax.googleapis.com/"
-    ]
+    ],
+    "options_page" : "options/index.html",
+
+    "content_scripts": [{
+        "matches": ["http://*/*", "https://*/*", "file:///*"],
+        "css": ["onpage.css"],
+        "js": ["onpage.js"],
+        "all_frames": true
+    }]
 }
