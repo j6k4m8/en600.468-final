@@ -18,7 +18,7 @@
         // decent proof of concept.
         if (ev.altKey && ev.keyCode == 84) {
             // They pressed Alt+T. Call _goshen's get-text function!
-            console.log(window._goshen);
+            // window._goshen._cg.G
         }
     })
 
