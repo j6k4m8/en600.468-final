@@ -20,9 +20,9 @@
         "matches": ["http://*/*", "https://*/*", "file:///*"],
         "css": ["onpage/onpage.css"],
         "js": [
+            "onpage/onpage.js",
             "onpage/goshen.js",
-            "onpage/chromegoshen.js",
-            "onpage/onpage.js"
+            "onpage/chromegoshen.js"
         ],
         "all_frames": true
     }]

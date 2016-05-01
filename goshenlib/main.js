@@ -11,7 +11,7 @@ Goshen = class Goshen {
 
         The options configuration dictionary can contain
         */
-        this.hostname = hostname || Meteor.settings.moses_server.default_url;
+        this.hostname = hostname;
         this.protocol = protocol || 'http';
     }
 

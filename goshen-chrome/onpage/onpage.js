@@ -7,7 +7,7 @@
         console.warn("_goshen unable to initialize!");
         return;
     } else {
-        window._goshen = new ChromeGoshen();
+        window._goshen = {};
     }
 
     // We can now request the contents of window.
@@ -18,7 +18,7 @@
         // decent proof of concept.
         if (ev.altKey && ev.keyCode == 84) {
             // They pressed Alt+T. Call _goshen's get-text function!
-            window._goshen.initializeTranslationEvent();
+            console.log(window._goshen);
         }
     })
 
