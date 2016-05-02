@@ -1,14 +1,14 @@
-(function (window) {
+(function(window) {
 
     var demo_url = "ec2-52-23-242-15.compute-1.amazonaws.com:8081";
 
     var _goshen = window._goshen;
 
-    on = function (event, cb) {
+    on = function(event, cb) {
         window.addEventListener(event, cb);
     }
 
-    off = function (event, cb) {
+    off = function(event, cb) {
         window.removeEventListener(event, cb);
     }
 
@@ -21,12 +21,12 @@
         /**
         * Begin interactive dom node selection.
         */
-        selectMode () {
+        selectMode() {
             var self = this;
             var selection = [];
             var previousElement = null;
 
-            var showSelection = function () {
+            var showSelection = function() {
                 var olds = document.querySelectorAll('._goshen-selected');
                 for (var i = 0; i < olds.length; i++) {
                     olds[i].classList.remove('_goshen-selected');
@@ -36,7 +36,7 @@
                 }
             };
 
-            var setSelection = function (sel) {
+            var setSelection = function(sel) {
                 selection = sel;
                 showSelection();
             };
@@ -51,7 +51,7 @@
                 "OL", "UL", "BLOCKQUOTE", "SECTION"
             ];
 
-            var selectSiblings = function (el) {
+            var selectSiblings = function(el) {
                 var firstChild = el;
                 var parent = el.parentNode;
                 while (parent && !~validParents.indexOf(parent.tagName)) {
@@ -78,7 +78,7 @@
                 } else { return [el]; }
             };
 
-            var stop = function () {
+            var stop = function() {
                 off("mouseover", mouseoverHandler);
                 off("mousemove", moveHandler);
                 off("keydown", keydownHandler);
@@ -87,7 +87,7 @@
                 self.performSelectTranslation(selection);
             };
 
-            var mouseoverHandler = function (ev) {
+            var mouseoverHandler = function(ev) {
                 previousElement = ev.target;
 
                 if (ev.altKey) {
@@ -97,16 +97,16 @@
                 }
             };
 
-            var clickHandler = function (ev) {
+            var clickHandler = function(ev) {
                 stop();
             };
 
-            var moveHandler = function (ev) {
+            var moveHandler = function(ev) {
                 mouseoverHandler(ev);
                 off("mousemove", moveHandler);
             };
 
-            var keydownHandler = function (ev) {
+            var keydownHandler = function(ev) {
                 if (ev.keyCode === 27) {
                     stop();
                 } else if (ev.altKey && selection.length > 1) {
@@ -114,7 +114,7 @@
                 }
             };
 
-            var keyupHandler = function (ev) {
+            var keyupHandler = function(ev) {
                 if (!ev.altKey && selection.length === 1) {
                     setSelection(selectSiblings(selection[0]));
                 }
@@ -127,7 +127,7 @@
             on("keyup", keyupHandler);
         }
 
-        select (contextData) {
+        select(contextData) {
             var text;
             if (contextData === undefined) {
                 text = window.getSelection().toString();
