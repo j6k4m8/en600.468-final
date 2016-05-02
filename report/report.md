@@ -18,27 +18,27 @@ I began by writing two scripts that thinly wrapped the suggested protocols on [t
 
 I also wrote this front-end to be compatible with the Linux binaries distributed on the MOSES website [here](http://www.statmt.org/moses/RELEASE-3.0/binaries/linux-64bit/linux-64bit.tgz). To use this binary instead, you can run the `configure-from-binary.sh` script. (Note that on an AWS ec2 m3.medium local to Virginia, this download took 10 minutes.)
 
-You will need XMLRPC-C, which is available on SourceForge. To download this, you can use the `install-xmlrpc.sh` script.<sup id="r-xmlrpc">[1](f-xmlrpc)</sup>
+You will need XMLRPC-C, which is available on SourceForge. To download this, you can use the `install-xmlrpc.sh` script. If you have trouble reproducing my successes, please feel free to reach out and I'll help you as best as I can.
 
 ### Test Data Download and Configuration
 Use the `scripts/tests/test-model.sh` script to download and untar some demo data.
 
 ### `casmacat` Installation
-After xmlrpc-c has been installed and configured, mosesserver should operate out of the box. The next step is to install and configure [casmacat](https://github.com/casmacat/moses-mt-server/tree/master/python_server).
+After xmlrpc-c has been installed and configured, mosesserver should operate out of the box. The next step is to install and configure [moses-mt-server](https://github.com/casmacat/moses-mt-server/tree/master/python_server).
 
-I use casmacat as a go-between between mosesserver and the JSON interface that Goshen accesses. Install casmacat with `scripts/install/install-casmacat.sh`. (You can also manually clone this repository.)
+I use casmacat's moses-mt-server as a go-between between mosesserver and the JSON interface that Goshen accesses. Install the suite with `scripts/install/install-casmacat.sh`. (You can also manually clone this repository.)
 
 Note that pip is installed in this step, which is then used to install cherrypy, Levenshtein, and other required libraries.
 
-casmacat can then be run with `run/runserver-casmacat.sh`.
+The moses-mt-server can then be run with `run/runserver-casmacat.sh`.
 
 ### The Whole Enchilada
 If you want to have a good day instead of a bad day (e.g. me installing everything on 14.04 a few weeks ago), run `the-whole-enchilada.sh` from the root of the scripts directory. I can guarantee with 0.4% confidence that this will work for you right out of the box.
 
-## Running casmacat over mosesserver
+## Running casmacat's moses-mt-server over mosesserver
 Start `mosesserver` with your specified model configuration file. If you want to get off the ground quickly, use `scripts/run/runserver-europarl`, which uses the EuroParl corpus as its model source.
 
-You now have `mosesserver` running locally on port 8080. Next, we'll run casmacat.
+You now have `mosesserver` running locally on port 8080. Next, we'll run casmacat's moses-mt-server.
 
 You can either run the server as per the casmacat documentation, or you can simply run `runserver-casmacat.sh`.
 
@@ -46,15 +46,15 @@ You can either run the server as per the casmacat documentation, or you can simp
 You can run everything inside the `scripts/run` directory — each will need its own terminal to run in, but once you're running those, you can hit your JSON server at `ip:port/translate`.
 
 ## Chrome Extension
-I also developed a chrome extension that utilizes the CASMACAT/Moses backend to provide a frontend website translation service. The extension automatically detects the content of most articles or body-text on the page, and at the user's request, translates it to the requested language.
+I also developed a chrome extension that utilizes the CASMACAT moses-mt-server/Moses backend to provide a frontend website translation service. The extension automatically detects the content of most articles or body-text on the page, and at the user's request, translates it to the requested language.
 
+### Known Limitations
+The server that I am running currently does not support HTTPS, and so translation requests made from websites served over HTTPS will probably fail (depending on your local browser configuration). This can be fixed in Chrome by running chrome with the `--unsafe` flag, though this is, of course, unadvisable.
 
 ## Future Work
 
 ### Installation Script
 I'd really love to spend a few hours writing up a complete installation script for moses and mosesserver — as it stands right now, the installation process is prohibitively difficult for a newbie to the project (and the documentation is sparse unless one knows where to look). One OSX script and one Ubuntu 14.04 script would likely be sufficient, and should be relatively easy to write. I can see this being of immense utility to the field.
 
-
------
-
-<b id="f-xmlrpc">1</b> Full disclosure. I have no idea if what I just did actually works on a new installation, but I had pretty good luck. If you run into trouble, reach out and I'll try my best to help you out, too. [↩](#"r-xmlrpc")
+## Acknowledgements
+My DOM-traversal code (available in `chromegoshen.js`) is (very) loosely adapted from the code I helped contribute to the Jetzt speed-reading codebase, available [here](https://github.com/ds300/jetzt/). I have many some simplifications and modifications in order to improve its usability for this particular task.

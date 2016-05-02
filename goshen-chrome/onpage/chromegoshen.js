@@ -142,10 +142,15 @@
             }
         };
 
+        chunkedTranslation(text) {
+            //
+            return this.G.translate(text);
+        }
+
         performSelectTranslation(selection) {
             for (var i = 0; i < selection.length; i++) {
                 console.log(selection[i])
-                selection[i].innerText = this.G.translate(selection[i].innerText);
+                selection[i].innerText = this._chunkedTranslation(selection[i].innerText);
             }
         }
     };
