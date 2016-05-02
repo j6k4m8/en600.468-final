@@ -142,9 +142,13 @@
             }
         };
 
-        chunkedTranslation(text) {
-            //
-            return this.G.translate(text);
+        _chunkedTranslation(text) {
+            // We need to find a way to split on sentences, or long things.
+            var texts = text.split('.');
+            for (var i = 0; i < texts.length; i++) {
+                texts[i] = this.G.translate(texts[i]);
+            }
+            return texts.join('.');
         }
 
         performSelectTranslation(selection) {

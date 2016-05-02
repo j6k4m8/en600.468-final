@@ -2,7 +2,7 @@
     "manifest_version": 2,
 
     "name": "Goshen Web Translator",
-    "description": "Translate entire webpages with a CASMACAT and Moses backend",
+    "description": "Translate entire webpages with a casmacat-moses backend",
     "version": "1.0",
 
     "browser_action": {
