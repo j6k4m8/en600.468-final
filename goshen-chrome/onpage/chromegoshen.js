@@ -153,8 +153,10 @@
 
         performSelectTranslation(selection) {
             for (var i = 0; i < selection.length; i++) {
-                console.log(selection[i])
+                selection[i].classList.add('_goshen-active');
                 selection[i].innerText = this._chunkedTranslation(selection[i].innerText);
+                selection[i].classList.remove('_goshen-active');
+                selection[i].classList.remove('_goshen-selected');
             }
         }
     };

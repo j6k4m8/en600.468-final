@@ -48,6 +48,9 @@ You can run everything inside the `scripts/run` directory — each will need its
 ## Chrome Extension
 I also developed a chrome extension that utilizes the CASMACAT moses-mt-server/Moses backend to provide a frontend website translation service. The extension automatically detects the content of most articles or body-text on the page, and at the user's request, translates it to the requested language.
 
+- limitations on length
+- implemented demo only — only de→en 
+
 ### Known Limitations
 The server that I am running currently does not support HTTPS, and so translation requests made from websites served over HTTPS will probably fail (depending on your local browser configuration). This can be fixed in Chrome by running chrome with the `--unsafe` flag, though this is, of course, unadvisable.
 
