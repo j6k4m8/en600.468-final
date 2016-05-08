@@ -26,20 +26,8 @@
     };
 
 
-
-    _goshen.Goshen = class Goshen {
+    class MosesGoshenAdapter {
         constructor(hostname, protocol, opts) {
-            /* Create a new Goshen object.
-
-            Arguments:
-            hostname (str): A protocol-less URI such as `255.255.0.0:3000`
-            protocol (str: 'http'): An http protocol (either 'http' or 'https')
-            opts (dict): Options for configuration.
-            from (str): The default `from` language
-            to (str): The default `to` language
-
-            The options configuration dictionary can contain
-            */
             this.hostname = hostname;
             this.protocol = protocol || 'http';
         }
@@ -86,5 +74,34 @@
             }
             return translated.data.translations[0].translatedText
         }
+    }
+
+
+    _goshen.Goshen = class Goshen {
+        constructor(hostname, protocol, type, opts) {
+            /* Create a new Goshen object.
+
+            Arguments:
+            hostname (str): A protocol-less URI such as `255.255.0.0:3000`
+            protocol (str: 'http'): An http protocol (either 'http' or 'https')
+            type (class): The type of adapter to use by default.
+            opts (dict): Options for configuration.
+
+            The options configuration dictionary can contain
+            */
+            type = type || MosesGoshenAdapter;
+            this.ga = new type(hostname, protocol, opts);
+        }
+
+        url(suffix) {
+            return this.ga.url(suffix);
+        }
+
+        translate(text, target, source, callback) {
+            /* Calls the local GoshenAdapter#translate. */
+            return this.ga.translate(text, target, source, callback);
+        }
+
+
     };
 })(this);

@@ -8,7 +8,17 @@ Jordan Matelsky (jmatels1)
 
 > I ran into some difficulties while installing Moses and the corresponding upstream supporting libraries. In order to improve this installation experience for others, I have also compiled a series of installation scripts that I used (with success) during the production of my final project. These scripts are known to work on the latest AWS EC2 14.04 Ubuntu AMI.
 
-## Installation and Setup
+## 0. Introduction
+This repository is comprised of four main deliverables:
+
+| Deliverable | Path | Description |
+|-------------|------|-------------|
+| Installation Scripts | `/scripts` | A set of installation scripts to assist in the provisioning of a server for use with the Goshen frontend JavaScript library. |
+| The Goshenjs Library | `/goshenlib` | A JavaScript library that adheres to conventional JS coding standards and utilizes modern technology, such as the ECMAScript 2015 specs for in-browser and Node-based compatibility. |
+| Realtime Chat Translation | `/goshen-app` | A web-app developed in the Meteor framework that serves as a demonstration of the capabilities of the Goshen library. Translates chat messages in realtime, and optionally reads them aloud in the user's native language. |
+| Chrome Extension | `/goshen-chrome` | A Chrome plugin that emulates the behavior of the existing [Google Translate extension](https://chrome.google.com/webstore/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb?hl=en) according to the feature-request suggestion on the [official Moses documentation](http://www.statmt.org/moses/?n=Moses.GetInvolved). |
+
+## 1. Installation and Setup Scripts
 This section explains the usage of the various parts of the platform that were developed for this project.
 
 If you're looking for a cure-all, do-everything-you-ever-wanted, best-day-ever solution, check out [**The Whole Enchilada**](#the-whole-enchilada) section below.
@@ -37,15 +47,18 @@ The moses-mt-server can then be run with `run/runserver-casmacat.sh`.
 ### The Whole Enchilada
 If you want to have a good day instead of a bad day (e.g. the bad day that I had when troubleshooting the install and writing these scripts on 14.04 a few weeks ago), run `the-whole-enchilada.sh` from the root of the scripts directory. I can guarantee with 0.4% confidence that this will work for you right out of the box. (Bug reports are more than welcome on the [GitHub repository](https://github.com/j6k4m8/en600.468-final/issues).)
 
-## Running casmacat's moses-mt-server over mosesserver
+### Running casmacat's moses-mt-server over mosesserver
 Start `mosesserver` with your specified model configuration file. If you want to get off the ground quickly, use `scripts/run/runserver-europarl`, which uses the EuroParl corpus as its model source.
 
 You now have `mosesserver` running locally on port 8080. Next, we'll run casmacat's moses-mt-server.
 
 You can either run the server as per the casmacat documentation, or you can simply run `runserver-casmacat.sh`.
 
-## ...so, finally:
+### ...so, finally:
 You can run everything inside the `scripts/run` directory — each will need its own terminal to run in, but once you're running those, you can hit your JSON server at `ip:port/translate`.
+
+## The Goshen.js Library
+As Google Translate is the current go-to for developers, I intend to make Moses a viable alternative for the savvy developer. This is in large part simplified by having an easily deployed (perhaps Dockerized) Moses server, as mentioned in the section above. However, it is also greatly simplified by exposing a comprehensive and well-formed JavaScript API that allows the same level of flexibility as the existing Google API. Instead of trying to duplicate the Google Translate API, I instead chose to write a wrapper for *any* translation engine. An engine with an exposed HTTP endpoint can be added to the Goshen translation library by implementing `GoshenAdapter`, for which I have provided a complete `moses-mt-server` implementation (`MosesGoshenAdapter`) and a partially complete proof of concept for Google Translte (`GoogleTranslateGoshenAdapter`). This is to illustrate that the engines can be used interchangeably for simple translation tasks, but the entirety of Moses functionality can be accessed whereas Google Translate fails to accommodate some more technical tasks.
 
 ## Chrome Extension
 I also developed a chrome extension that utilizes the CASMACAT moses-mt-server/Moses backend to provide a frontend website translation service. The extension automatically detects the relevant content of most articles or body-text on the page, and at the user's request, translates it to the requested language.
@@ -66,10 +79,15 @@ I also developed a chrome extension that utilizes the CASMACAT moses-mt-server/M
 ### Installation Script
 I'd really love to spend a few hours writing up a complete installation script for moses and moses-mt-server — as it stands right now, the installation process is prohibitively difficult for a newbie to the project (and the documentation is sparse unless one knows where to look). One OSX script and one Ubuntu 14.04 script would likely be sufficient, and should be relatively easy to write. I can see this being of immense utility to the field, as it would be very simple to spin up a "template" like a Docker image or an AMI on the AWS Marketplace, and immediately support the Moses stack.
 
+### Goshen.js Library
+I would like to write a further adapter that allows different services to be queried, based on the success of each individual translation service. That is, after querying Moses, if the corpus is found to be incomplete for the purposes of the requested translation task, another engine (such as GT) can be queried as well. Or, for language-detection tasks, GT can be reached, but for alignment tasks, Moses can be used, with full opacity to the user.
+
 ### Chrome Extension
 This extension is nearly complete: The main modifications I would like to make are as follows:
 - **See-original.** Currently, the HTML element is permanently mutated in-place: To see the original text, you must reload the entire web-page.
 - **Translation-candidate display.** One huge advantage that Moses has over Google Translate's Chrome Extension is the native support for multiple candidate-translations. I would very much like to implement support for several overlays, so that mousing over translated text gives alternate translated text alongside the original.
 
 ## Acknowledgements
-My DOM-traversal code (available in `chromegoshen.js`) is (very) loosely adapted from the code I helped contribute to the Jetzt speed-reading codebase, available [here](https://github.com/ds300/jetzt/). I have many some simplifications and modifications in order to improve its usability for this particular task.
+My DOM-traversal code (available in `chromegoshen.js`) is (very) loosely adapted from the code I helped contribute to the Jetzt speed-reading codebase, available [here](https://github.com/ds300/jetzt/). I have many some simplifications and modifications in order to improve its usability for this particular task. Credit goes to `@DS300` as well, for his contributions to the original DOM-traversal code.
+
+The Goshen Chrome icon is derived from the Google Chrome open-source repository. Credit to Google Chrome Development Group.
