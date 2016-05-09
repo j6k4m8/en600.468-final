@@ -1,10 +1,34 @@
 # Goshen.js Documentation
 
 ## Overview
-TODO
+The Goshen library provides a web-developer-facing library for handling machine translation. It allows interaction with arbitrary machine translation services, agnostic of the technology or algorithm stack.
 
 ## Usage
-TODO
+A very brief tutorial is provided here:
+
+- Create a new Goshen object. Use the MosesGoshenAdapter, so that translations are handled by a Moses MT server.
+    ```JavaScript
+    g = new Goshen('localhost:3000', 'http', MosesGoshenAdapter);
+    ```
+- Use the Goshen object to pass a translation job to the Moses adapter. The adapter will pass back a completed translation once the job completes.
+    ```JavaScript
+    g.translate('This is a simple sentence.', Languages.ENGLISH, Languages.SPANISH);
+    ```
+- You can also optionally pass a callback function to the .translate method:
+    ```JavaScript
+    g.translate('This is a simple sentence.',
+                Languages.ENGLISH,
+                Languages.SPANISH,
+                function(err, val) {
+        if (!!err) {
+            console.warn("Encountered an error: " + err);
+        } else {
+            console.info("Translated to: " + val);
+        }
+    });
+    ```
+    If a callback is supplied, the function is run on a new thread, and is non-blocking. If one is not supplied, then the return value of the function contains the translated text. `undefined` is returned if the translation fails.
+
 
 ## `Goshen`
 The generic class for a Goshen.js object, the object that handles translation with an arbitrary translation backend. In order to specify a backend, pass a `type` parameter to the constructor. (Default is Moses, of course!)
