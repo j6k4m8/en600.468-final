@@ -15,8 +15,8 @@ This repository is comprised of four main deliverables:
 |-------------|------|-------------|
 | Installation Scripts | `/scripts` | A set of installation scripts to assist in the provisioning of a server for use with the Goshen frontend JavaScript library. |
 | The Goshenjs Library | `/goshenlib` | A JavaScript library that adheres to conventional JS coding standards and utilizes modern technology, such as the ECMAScript 2015 specs for in-browser and Node-based compatibility. (I surprised myself by really liking JavaScript for this project!) |
-| Realtime Chat Translation | `/goshen-app` | A web-app developed in the Meteor framework that (a) uses the Goshen.js library developed above, and (b) serves as a demonstration of the capabilities of the Goshen library. Translates chat messages in realtime, and optionally reads them aloud in the user's native language. |
 | Chrome Extension | `/goshen-chrome` | A Chrome plugin that emulates the behavior of the existing [Google Translate extension](https://chrome.google.com/webstore/detail/google-translate/aapbdbdomjkkjkaonfhkkikfgjllcleb?hl=en) according to the feature-request suggestion on the [official Moses documentation](http://www.statmt.org/moses/?n=Moses.GetInvolved). |
+| Realtime Chat Translation | `/goshen-app` | A web-app developed in the Meteor framework that (a) uses the Goshen.js library developed above, and (b) serves as a demonstration of the capabilities of the Goshen library. Translates chat messages in realtime, and optionally reads them aloud in the user's native language. |
 
 ## 1. Installation and Setup Scripts
 This section explains the usage of the various parts of the platform that were developed for this project.
@@ -57,14 +57,14 @@ You can either run the server as per the casmacat documentation, or you can simp
 ### ...so, finally:
 You can run everything inside the `scripts/run` directory — each will need its own terminal to run in, but once you're running those, you can hit your JSON server at `ip:port/translate`. I suggest using tmux to multiplex terminal windows and detach from your ssh session cleanly.
 
-## The Goshen.js Library
+## 2. The Goshen.js Library
 As Google Translate is the current go-to machine-translation system for developers, I intend to make Moses a viable alternative for even the non-savvy developer. This is in large part simplified by having an easily deployed (perhaps Dockerized) Moses server, as mentioned in the section above. However, it is also greatly simplified by exposing a comprehensive and well-formed JavaScript API that allows the same level of flexibility as the existing Google API.
 
 Instead of trying to duplicate the Google Translate API, I instead chose to write a wrapper for *any* translation engine. An engine with an exposed HTTP endpoint can be added to the Goshen translation library by implementing `GoshenAdapter`, for which I have provided a complete `moses-mt-server` implementation (`MosesGoshenAdapter`) and a partially complete proof of concept for Google Translate (`GoogleTranslateGoshenAdapter`). This is to illustrate that the engines can be used interchangeably for simple translation tasks, but the entirety of Moses functionality can be accessed whereas Google Translate fails to accommodate some more technical tasks.
 
 The library is both commented and minified, available in the `goshenlib/` directory. It is also possible to import the unminified, importable version from `goshenlib/dist`. The complete documentation, as well as usage examples and implementation explanations and justifications, are available in `goshenlib/docs`.
 
-## Chrome Extension
+## 3. Chrome Extension
 I also developed a Chrome extension that utilizes the CASMACAT moses-mt-server/Moses backend to provide a frontend website translation service. The extension automatically detects the relevant content of most articles or body-text on the page, and at the user's request, translates it to the requested language. Usage is explained below, as well as inside the extension popup after installation, for quick reference.
 
 ### Known Limitations
@@ -76,6 +76,17 @@ I also developed a Chrome extension that utilizes the CASMACAT moses-mt-server/M
 2. This adds a Goshen icon to your Chrome toolbar. ![](figs/chrome-bar.png) Clicking it brings up a simple modal that allows the switching of languages. (See above — currently, only DE→EN translation is supported, as that is all I'm running on my server.)
 3. Use the <kbd>Alt</kbd>+<kbd>T</kbd> key-chord ("T" for "Translate") to begin text-selection. The Goshen-translate extension will highlight elements of text in cyan as you mouse over them: To translate what is currently highlighted, click.
   ![](figs/chrome-highlight.png)
+
+## 4. Chat Application
+As a proof of concept, I have developed a chat application that allows for the realtime conversation between several users, using the Goshen.js library as a go-between to provide realtime translations to users. This is intended as a proof of concept of the Goshen library, more than a production-ready standalone application. The source-code for this project is available in `goshen-app`. [Meteor](https://meteor.com) is required to transpile this code into a running Node app.
+
+Below, we see this application in use:
+
+> ![](../progress/app-demo.gif)
+> <small>The user first receives a message from another user. (The other user has nothing interesting to say!) The current user switches his native language to English, and all chat messages that are not natively written in English are either translated, or a cached translation is substituted.</small>
+
+## Known Limitations
+- Capitalization is ignored in the demonstration above because of a misconfiguration with the Perl capitalization scripts
 
 ## Future Work
 
